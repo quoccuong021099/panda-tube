@@ -1,39 +1,41 @@
 import React from "react";
-import {Link} from 'react-router-dom';
-
-function Button({text, bg, padding}) {
-  return (
-    <div>
-      <button
-        className={`
-          ${padding || 'px-6 py-2'} text-sm font-semibold uppercase 
-          rounded-sm text-white transition ${bg}`}
-      >
-        <span>{text}</span>
-      </button>
-    </div>
-  );
-}
-
-
+import { Link } from "react-router-dom";
+import { ExploreIcon, PhotoIcon, VideoFeedIcon } from "./Icons";
 function Navbar() {
   return (
-    <div className="fixed left-0 right-0 top-0 h-16 shadow-md border-b-2 border-gray-100 bg-gray-900">
-      <nav className="flex items-center container mx-auto h-full justify-between">
-        <h1 className="font-semibold uppercase text-lg text-gray-200">
-          🔄 Demo App
-        </h1>
-        <div>
-          <ul className="flex items-center space-x-10 text-sm">
-            <li><Link to="/" className="text-gray-400 hover:text-gray-100">Home</Link></li>
-            <li><Link to="/about" className="text-gray-400 hover:text-gray-100">About Us</Link></li>
-            <li><Link to="/docs" className="text-gray-400 hover:text-gray-100">Docs</Link></li>
-          </ul>
+    <div className="z-[99999] fixed w-[1200px] px-5 py-3 top-0  shadow-sm border-b-[1px] border-[#eee] bg-[#fff] rounded-b-lg">
+      <div className="flex justify-between ">
+        <div className="flex">
+          <Link to="/" className="inline-flex items-center mr-10">
+            <img
+              src="https://cdn.worldvectorlogo.com/logos/panda-7.svg"
+              alt=""
+              width="50"
+              className="mr-3"
+            />
+            <span className="text-xl font-semibold">PandaTube</span>
+          </Link>
+          <div className="inline-flex items-center">
+            <Link to="/feed" className="inline-flex items-center mr-5 ">
+              <VideoFeedIcon />
+              <span className="text-xl font-normal">Video Feed</span>
+            </Link>
+            <Link to="/explore" className="inline-flex items-center mr-5 ">
+              <ExploreIcon />
+              <span className="text-xl font-normal">Explore</span>
+            </Link>
+            <Link to="/photo" className="inline-flex items-center mr-5 ">
+              <PhotoIcon />
+              <span className="text-xl font-normal">Photos</span>
+            </Link>
+          </div>
         </div>
         <div>
-          <Button text="Login" bg="bg-gradient-to-r from-purple-500 to-blue-500"/>
+          <Link to="/login" className="inline-flex items-center mr-5">
+            <span className="text-xl font-medium text-blue-500">Login</span>
+          </Link>
         </div>
-      </nav>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #ececec;
+}
+
+.slick-slide {
+  margin-right: 20px !important;
+}
+
+.slick-prev,
+.slick-next {
+  margin-top: -40px !important;
+}
+.timtim {
+  display: flex !important;
+}
+.outline-class {
+  outline: 4px solid #416dfa;
+}
