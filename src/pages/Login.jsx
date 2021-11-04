@@ -2,9 +2,10 @@ import _get from "lodash/get";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Default } from "react-spinners-css";
-import { login } from "../redux/actions/auth";
+import AlertErr from "../components/AlertErr";
+import { login, resetFlag } from "../redux/actions/auth";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
@@ -13,21 +14,19 @@ export default function Login() {
   const statusFlags = useSelector((state) =>
     _get(state, "loginReducer.statusFlags")
   );
-  // const currentUser = useSelector((state) =>
-  //   _get(state, "loginReducer.currentUser")
-  // );
+  const { err } = useSelector((state) => _get(state, "loginReducer.logs"));
 
-  // console.log("currentUser", currentUser);
-  // console.log("statusFlags", statusFlags);
-
-  // const history = useHistory();
+  const history = useHistory();
 
   const onSubmit = (data) => {
-    console.log("data", data);
+    dispatch(resetFlag());
     const action = login(data);
     dispatch(action);
   };
 
+  React.useEffect(() => {
+    if (_get(statusFlags, "isLoginSuccess")) history.push("/");
+  }, [_get(statusFlags, "isLoginSuccess")]);
   return (
     <div className="flex justify-center items-center">
       <div className="w-[700px] h-auto bg-gray-100 p-10">
@@ -95,6 +94,7 @@ export default function Login() {
           </div>
         </form>
       </div>
+      {err && <AlertErr title={err} duration={5} />}
     </div>
   );
 }

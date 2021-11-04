@@ -8,3 +8,5 @@ export * from "./DownloadIcon";
 export * from "./ShareIcon";
 export * from "./HeartIcon";
 export * from "./VideoFeedIcon";
+export * from "./CloseIcon";
+export * from "./WarningIcon";

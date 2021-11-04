@@ -5,6 +5,7 @@ import {
   REGISTER,
   REGISTER_FAILED,
   REGISTER_SUCCESS,
+  RESET,
 } from "../constants/auth";
 
 // LOGIN
@@ -24,6 +25,13 @@ export const loginFaiure = (message) => {
   return {
     type: LOGIN_FAILED,
     message,
+  };
+};
+
+// RESET ALL
+export const resetFlag = () => {
+  return {
+    type: RESET,
   };
 };
 

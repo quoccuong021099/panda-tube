@@ -1,11 +1,23 @@
 import React from "react";
+import DetailExploreItem from "../pages/DetailExploreItem";
 import { HeartIcon } from "./Icons";
 
 export default function ExploreContent() {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const handleClick = () => {
+    setIsOpen(true);
+  };
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   return (
     <div className="bg-white p-6 rounded-2xl grid grid-cols-3 max-w-6xl mx-auto px-[15px] gap-x-[20px] gap-y-[20px]">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((item) => (
-        <div className="h-[320px] cursor-pointer relative" key={item}>
+        <div
+          className="h-[320px] cursor-pointer relative"
+          key={item}
+          onClick={handleClick}
+        >
           <img
             src="https://doutube.s3-ap-southeast-1.amazonaws.com/public/images/album_1348754161869196_cover.jpg"
             alt=""
@@ -25,6 +37,7 @@ export default function ExploreContent() {
           </div>
         </div>
       ))}
+      {isOpen && <DetailExploreItem handleClose={handleClose} />}
     </div>
   );
 }

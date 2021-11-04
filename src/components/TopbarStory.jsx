@@ -1,12 +1,21 @@
 import React from "react";
 import Slider from "react-slick";
 import { categoryTopbarData } from "../data/fakeData";
+import DetailStory from "../pages/DetailStory";
 
 export default function TopbarStory() {
   const settings = {
     speed: 200,
     slidesToShow: 7,
     slidesToScroll: 2,
+  };
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const handleClick = () => {
+    setIsOpen(true);
+  };
+  const handleClose = () => {
+    setIsOpen(false);
   };
   return (
     <div>
@@ -15,6 +24,7 @@ export default function TopbarStory() {
           <div
             key={index}
             className="timtim flex flex-col items-center justify-center"
+            onClick={handleClick}
           >
             <div className="w-[64px] h-[70px] flex items-center relative cursor-pointer">
               <img
@@ -28,6 +38,7 @@ export default function TopbarStory() {
           </div>
         ))}
       </Slider>
+      {isOpen && <DetailStory handleClose={handleClose} />}
     </div>
   );
 }

@@ -1,7 +1,36 @@
+import _get from "lodash/get";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { resetFlag } from "../redux/actions/auth";
 import { ExploreIcon, PhotoIcon, VideoFeedIcon } from "./Icons";
-function Navbar() {
+export default function Navbar() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [login, setLogin] = React.useState(false);
+
+  const statusFlags = useSelector((state) =>
+    _get(state, "loginReducer.statusFlags")
+  );
+
+  const isLogin = localStorage.getItem("loginSC");
+
+  React.useEffect(() => {
+    if (_get(statusFlags, "isLoginSuccess") || isLogin) {
+      setLogin(true);
+    }
+  }, [_get(statusFlags, "isLoginSuccess"), isLogin]);
+
+  const handleLog = () => {
+    if (login) {
+      dispatch(resetFlag());
+      localStorage.removeItem("loginSC");
+      setLogin(false);
+    }
+    history.push("/login");
+  };
+  console.log("local", localStorage.getItem("loginSC"));
+
   return (
     <div className="z-[99999] fixed w-[1200px] px-5 py-3 top-0  shadow-sm border-b-[1px] border-[#eee] bg-[#fff] rounded-b-lg">
       <div className="flex justify-between ">
@@ -31,13 +60,16 @@ function Navbar() {
           </div>
         </div>
         <div>
-          <Link to="/login" className="inline-flex items-center mr-5">
-            <span className="text-xl font-medium text-blue-500">Login</span>
-          </Link>
+          <p
+            className="inline-flex items-center mr-5 cursor-pointer"
+            onClick={handleLog}
+          >
+            <span className="text-xl font-medium text-blue-500">
+              {login ? "Logout" : "Login"}
+            </span>
+          </p>
         </div>
       </div>
     </div>
   );
 }
-
-export default Navbar;

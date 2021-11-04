@@ -4,6 +4,7 @@
 
 body {
   background-color: #ececec;
+  position: relative;
 }
 
 .slick-slide {

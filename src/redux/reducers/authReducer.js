@@ -1,5 +1,5 @@
 import produce from "immer";
-import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILED } from "../constants/auth";
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILED, RESET } from "../constants/auth";
 
 export const initialState = {
   currentUser: null,
@@ -17,6 +17,16 @@ export const initialState = {
 const loginReducer = (state = initialState, action) =>
   produce(state, (draft) => {
     switch (action.type) {
+      case RESET: {
+        draft.statusFlags.isLoading = initialState.statusFlags.isLoading;
+        draft.statusFlags.isLoginSuccess =
+          initialState.statusFlags.isLoginSuccess;
+        draft.statusFlags.isLoginFailure =
+          initialState.statusFlags.isLoginFailure;
+        draft.currentUser = initialState.currentUser;
+        draft.logs.err = initialState.logs.err;
+        break;
+      }
       case LOGIN: {
         draft.statusFlags.isLoading = true;
         break;
@@ -25,7 +35,7 @@ const loginReducer = (state = initialState, action) =>
         draft.statusFlags.isLoading = false;
         draft.statusFlags.isLoginSuccess = true;
         draft.statusFlags.isLoginFailure = false;
-        draft.currentUser = action.payload;
+        draft.currentUser = action.payload.user;
         break;
       }
       case LOGIN_FAILED: {

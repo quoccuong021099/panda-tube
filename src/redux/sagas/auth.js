@@ -4,52 +4,36 @@ import { LOGIN } from "../constants/auth";
 import _get from "lodash/get";
 import { loginFaiure, loginSuccess } from "../actions/auth";
 
-const url = "http://localhost:5000/api/auth/login";
+const url = "http://localhost:5555/api";
+// auth/register
 
 function login(data) {
   return axios({
     method: "post",
-    url,
+    url: `${url}/auth/login`,
     data,
   });
   // return axios.post(url, { usename: "timtim", password: "nhun" });
 }
-// function fetchUser() {
-//   return axios({
-//     method: "GET",
-//     url: "http://localhost:5000/users",
-//   });
-// }
 // function postUser(userInfor) {
 //   axios.post("http://localhost:5000/users", userInfor);
 // }
 
 // const isLogin = localStorage.getItem("acess-token");
 
-function* loginSagaFunc(userInfo) {
-  const response = yield call(login, _get(userInfo, "payload"));
-  // const getAccessToken = _get(response, "data.accessToken");
-  yield delay(2000);
+function* loginSagaFunc({ payload }) {
+  const response = yield call(login, payload);
+  const { data } = response;
   try {
     if (_get(response, "status") === 200) {
-      yield put(loginSuccess(response));
-      // yield localStorage.setItem("acess-token", JSON.stringify(getAccessToken));
+      yield put(loginSuccess(data));
+      localStorage.setItem("loginSC", JSON.stringify(data));
+    } else {
+      yield put(loginFaiure("Sai tên đăng nhập hoặc mật khẩu"));
     }
   } catch (error) {
-    yield put(loginFaiure(error));
+    yield put(loginFaiure("Sai tên đăng nhập hoặc mật khẩu"));
   }
-  // const user = userInfo.userInfo;
-  // const userData = _get(response, "data", []);
-  // let testUser = _find(
-  //   userData,
-  //   (i) => i.username === user.username && i.password === user.password
-  // );
-  // if (testUser) {
-  //   localStorage.setItem("user-info", JSON.stringify(testUser));
-  //   yield put(loginUserSuccess(testUser));
-  // } else {
-  //   yield put(loginUserFaiure("Sai tài khoản hoặc mật khẩu"));
-  // }
 }
 // function* signupSagaFunc(userInfo) {
 //   const user = userInfo.userInfo;
