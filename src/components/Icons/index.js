@@ -10,3 +10,4 @@ export * from "./HeartIcon";
 export * from "./VideoFeedIcon";
 export * from "./CloseIcon";
 export * from "./WarningIcon";
+export * from "./AddIcon";

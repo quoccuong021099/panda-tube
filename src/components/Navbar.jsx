@@ -29,7 +29,6 @@ export default function Navbar() {
     }
     history.push("/login");
   };
-  console.log("local", localStorage.getItem("loginSC"));
 
   return (
     <div className="z-[99999] fixed w-[1200px] px-5 py-3 top-0  shadow-sm border-b-[1px] border-[#eee] bg-[#fff] rounded-b-lg">

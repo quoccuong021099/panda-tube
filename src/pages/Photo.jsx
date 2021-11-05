@@ -1,17 +1,76 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAlbum } from "../redux/actions/photo";
+import _get from "lodash/get";
+import _size from "lodash/size";
+import { AddIcon } from "../components/Icons";
+import CreateAlbum from "../components/CreateAlbum";
 
 export default function Photo() {
+  const [isOpenCreateAlbum, setIsOpenCreateAlbum] = React.useState(false);
+
+  const dispatch = useDispatch();
+
+  const statusFlags = useSelector((state) => state.photoReducer.statusFlags);
+
+  const listAlbum = useSelector((state) => state.photoReducer.listAlbum);
+  console.log("listAlbum", listAlbum);
+
+  React.useEffect(() => {
+    dispatch(getAlbum());
+  }, []);
+
+  const handleOpenCreateAlbum = () => {
+    setIsOpenCreateAlbum(true);
+  };
+  const handleCloseCreateAlbum = () => {
+    setIsOpenCreateAlbum(false);
+  };
+
   return (
-    <div className="bg-white p-5 rounded-2xl grid grid-cols-4 max-w-6xl mx-auto px-[15px] gap-x-[20px] gap-y-[20px]">
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((item) => (
-        <div className="h-[288px]" key={item}>
+    <div className="bg-white p-5 rounded-2xl">
+      {!_get(statusFlags, "isLoading") && _size(listAlbum) === 0 && (
+        <div className="flex flex-col justify-center items-center">
           <img
-            src="https://images.unsplash.com/photo-1593642532781-03e79bf5bec2?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80"
+            src="https://png.pngtree.com/element_our/20200610/ourmid/pngtree-no-data-on-the-computer-image_2238447.jpg"
             alt=""
-            className="w-full h-full rounded-lg object-cover mb-35"
+            className="w-[300px] h-[200px]"
           />
+          <h1 className="text-center mt-5 text-blue-600 font-semibold ">
+            There are currently no albums to display!
+          </h1>
         </div>
-      ))}
+      )}
+      <div className=" grid grid-cols-4 max-w-[100%] mx-auto px-[20px] gap-x-[20px] gap-y-[20px]">
+        {_get(statusFlags, "isLoading") &&
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(
+            (item) => (
+              <div
+                className="h-[288px] bg-gray-400 rounded-lg"
+                key={item}
+              ></div>
+            )
+          )}
+
+        {listAlbum.map((item) => (
+          <div className="h-[288px] " key={item._id}>
+            <img
+              src={item.album[0]}
+              alt={item.albumName}
+              className="w-full h-full rounded-lg object-cover mb-35"
+            />
+          </div>
+        ))}
+      </div>
+      <button
+        className="bg-blue-500 p-2 flex items-center justify-center text-white rounded-full fixed bottom-5 right-5"
+        onClick={handleOpenCreateAlbum}
+      >
+        <AddIcon />
+      </button>
+      {isOpenCreateAlbum && (
+        <CreateAlbum handleClose={handleCloseCreateAlbum} />
+      )}
     </div>
   );
 }
