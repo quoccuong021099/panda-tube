@@ -13,13 +13,8 @@ function login(data) {
     url: `${url}/auth/login`,
     data,
   });
-  // return axios.post(url, { usename: "timtim", password: "nhun" });
 }
-// function postUser(userInfor) {
-//   axios.post("http://localhost:5000/users", userInfor);
-// }
 
-// const isLogin = localStorage.getItem("acess-token");
 
 function* loginSagaFunc({ payload }) {
   const response = yield call(login, payload);

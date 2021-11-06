@@ -11,3 +11,4 @@ export * from "./VideoFeedIcon";
 export * from "./CloseIcon";
 export * from "./WarningIcon";
 export * from "./AddIcon";
+export * from "./FullScreenIcon";

@@ -1,13 +1,32 @@
+import _get from "lodash/get";
 import React from "react";
-import { CloseIcon } from "./Icons";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { Default } from "react-spinners-css";
+import { createAlbum, resetFlagPhoto } from "../redux/actions/photo";
+import { CloseIcon } from "./Icons";
 
 export default function CreateAlbum({ handleClose }) {
   const { register, handleSubmit } = useForm();
 
+  const dispatch = useDispatch();
+  const statusFlags = useSelector((state) =>
+    _get(state, "photoReducer.statusFlags")
+  );
+
   const onSubmit = (data) => {
-    console.log("data", data);
+    const newAlbum = [];
+    newAlbum.push(data.album);
+    data["album"] = newAlbum;
+    dispatch(createAlbum(data));
   };
+
+  React.useEffect(() => {
+    if (_get(statusFlags, "isCreateAlBumSuccess")) {
+      handleClose();
+      dispatch(resetFlagPhoto());
+    }
+  }, [_get(statusFlags, "isCreateAlBumSuccess")]);
 
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 z-[9999999] bg-black opacity-90 flex justify-center items-center">
@@ -50,9 +69,12 @@ export default function CreateAlbum({ handleClose }) {
         </p>
         <div className="mt-5 flex justify-end">
           <button
-            className="text-white font-medium text-sm bg-blue-500 px-2 py-1 rounded-md hover:bg-blue-600"
+            className="flex justify-center items-center text-white font-medium text-sm bg-blue-500 px-2 py-1 rounded-md hover:bg-blue-600"
             type="submit"
           >
+            {_get(statusFlags, "isCreateAlBum") && (
+              <Default color="white" size={18} className="mr-2" />
+            )}
             Create
           </button>
         </div>
