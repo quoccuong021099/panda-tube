@@ -4,7 +4,8 @@ import ContentFeedItem from "../components/ContentFeedItem";
 import AvatarUser from "../components/AvatarUser";
 import { CloseIcon } from "../components/Icons";
 
-export default function DetailExploreItem({ handleClose }) {
+export default function DetailExploreItem({ handleClose, infoDetail }) {
+  console.log("infoDetail", infoDetail);
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 bg-red-500 z-[99999999] flex">
       <div className="w-[75%] bg-blue-800 relative">

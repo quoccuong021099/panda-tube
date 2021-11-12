@@ -21,7 +21,6 @@ export default function Photo() {
   const listAlbum = useSelector((state) =>
     _get(state, "photoReducer.listAlbum")
   );
-  console.log("listAlbum", listAlbum);
 
   React.useEffect(() => {
     dispatch(getAlbum());
@@ -62,30 +61,26 @@ export default function Photo() {
       )}
       <div className=" grid grid-cols-4 max-w-[100%] mx-auto px-[20px] gap-x-[20px] gap-y-[20px]">
         {_get(statusFlags, "isLoading") &&
-          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(
-            (item) => (
-              <div
-                className="h-[288px] bg-gray-400 rounded-lg"
-                key={item}
-              ></div>
-            )
-          )}
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
+            <div className="h-[288px] bg-gray-400 rounded-lg" key={item}></div>
+          ))}
 
-        {listAlbum
-          ?.map((item) => (
-            <div
-              key={item._id}
-              className="h-[288px] cursor-pointer"
-              onClick={() => handleOpenDetailAlbum(item)}
-            >
-              <img
-                src={item.album[0]}
-                alt={item.albumName}
-                className="w-full h-full rounded-lg object-cover mb-35"
-              />
-            </div>
-          ))
-          .reverse()}
+        {!_get(statusFlags, "isLoading") &&
+          listAlbum
+            ?.map((item) => (
+              <div
+                key={item._id}
+                className="h-[288px] cursor-pointer"
+                onClick={() => handleOpenDetailAlbum(item)}
+              >
+                <img
+                  src={item.album[0]}
+                  alt={item.albumName}
+                  className="w-full h-full rounded-lg object-cover mb-35"
+                />
+              </div>
+            ))
+            .reverse()}
       </div>
       <button
         className="bg-blue-500 p-2 flex items-center justify-center text-white rounded-full fixed bottom-5 right-5"

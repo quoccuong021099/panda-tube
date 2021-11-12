@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 import { categoryTopbarData } from "../data/fakeData";
-
-export default function TopbarCategory() {
+import { Link } from "react-router-dom";
+export default function TopbarCategory({ url }) {
   const settings = {
     speed: 200,
     slidesToShow: 7,
@@ -16,7 +16,9 @@ export default function TopbarCategory() {
             key={index}
             className="timtim bg-white shadow-md  flex items-center justify-center text-center text-xs font-medium h-[80px] group rounded-md hover:bg-blue-500 cursor-pointer"
           >
-            <span className="group-hover:text-white">{item}</span>
+            <Link to={`${url}/123`} className="group-hover:text-white">
+              {item}
+            </Link>
           </div>
         ))}
       </Slider>

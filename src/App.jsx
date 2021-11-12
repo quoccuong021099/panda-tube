@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Photo from "./pages/Photo";
 import Register from "./pages/Register";
 import _get from "lodash/get";
+import HomePage from "./pages/HomePage";
 function App() {
   const isLogin = localStorage.getItem("loginSC");
 
@@ -16,7 +17,7 @@ function App() {
       <Navbar />
       <div className="pt-5">
         <Switch>
-          <Route path="/" component={Feed} exact />
+          <Route path="/" component={HomePage} exact />
           <Route path="/feed" component={Feed} />
           <Route path="/explore" component={Explore} />
           <Route

@@ -12,3 +12,4 @@ export * from "./CloseIcon";
 export * from "./WarningIcon";
 export * from "./AddIcon";
 export * from "./FullScreenIcon";
+export * from "./ArrowLeft";
