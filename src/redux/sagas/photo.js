@@ -32,15 +32,11 @@ function* alBumSagaFunc() {
       yield put(getAlbumFaiure("Đã có lỗi xảy ra ahihi"));
     }
   } catch (error) {
-    console.log(error);
     yield put(getAlbumFaiure(error));
   }
 }
 function* createAlBumSagaFunc({ payload }) {
-  console.log("aaaaaaaaaaa");
   const response = yield call(createAlbum, payload);
-  console.log("aaaaaaaaaaav");
-  console.log("response", response);
   yield delay(1000);
   try {
     if (_get(response, "status") === 201) {
@@ -49,7 +45,6 @@ function* createAlBumSagaFunc({ payload }) {
       yield put(createAlbumFaiure("Đã có lỗi xảy ra ahihi"));
     }
   } catch (error) {
-    console.log(error);
     yield put(createAlbumFaiure(error));
   }
 }

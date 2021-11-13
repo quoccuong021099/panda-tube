@@ -16,7 +16,7 @@ export default function TopbarCategory({ url }) {
             key={index}
             className="timtim bg-white shadow-md  flex items-center justify-center text-center text-xs font-medium h-[80px] group rounded-md hover:bg-blue-500 cursor-pointer"
           >
-            <Link to={`${url}/123`} className="group-hover:text-white">
+            <Link to={`${url}/girl`} className="group-hover:text-white">
               {item}
             </Link>
           </div>

@@ -8,7 +8,7 @@ export default function DetailExploreItem({ handleClose, infoDetail }) {
   console.log("infoDetail", infoDetail);
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 bg-red-500 z-[99999999] flex">
-      <div className="w-[75%] bg-blue-800 relative">
+      <div className="w-[75%] bg-black relative">
         <div className="absolute z-[100] w-full h-24 bg-black flex justify-between items-center">
           <div className="flex ml-10 w-[15%] justify-between">
             <span
@@ -35,14 +35,22 @@ export default function DetailExploreItem({ handleClose, infoDetail }) {
             </button>
           </div>
         </div>
-        <iframe
-          src="https://www.youtube.com/embed/btUTQeto940"
+        <video
+          src={`${infoDetail.video}`}
+          preload="metadata"
+          autoPlay
+          controls
+          muted
+          loop
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          playsInline
           className="w-full h-full absolute z-0"
-        ></iframe>
+        ></video>
       </div>
       <div className="w-[25%] bg-white p-10">
-        <AvatarUser />
-        <ContentFeedItem />
+        <AvatarUser avatar={infoDetail.avatar} />
+        <ContentFeedItem like={infoDetail.like} />
       </div>
     </div>
   );

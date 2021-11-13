@@ -12,7 +12,7 @@ function getAllVideo() {
 
 function* exploreSagaFunc() {
   const response = yield call(getAllVideo);
-  yield delay(1000);
+  yield delay(2000);
   try {
     if (_get(response, "status") === 200)
       yield put(getExploreSuccess(_get(response, "data")));

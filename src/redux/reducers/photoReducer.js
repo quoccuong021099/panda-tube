@@ -54,7 +54,6 @@ const photoReducer = (state = initialState, action) =>
         draft.logs.err = action.message;
         draft.statusFlags.isCreateAlBumSuccess = false;
         draft.statusFlags.isCreateAlBum = false;
-        console.log(action, "123");
         break;
       }
       case RESET_FLAG_PHOTO: {

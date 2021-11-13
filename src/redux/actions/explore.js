@@ -11,7 +11,6 @@ export const getExplore = () => {
   };
 };
 export const getExploreSuccess = (payload) => {
-  console.log("payload", payload);
   return {
     type: GET_EXPLORE_SUCCESS,
     payload,
